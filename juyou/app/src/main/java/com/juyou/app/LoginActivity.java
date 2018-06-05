@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -70,6 +71,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     LinearLayout emailLoginForm;
     @BindView(R.id.login_form)
     ScrollView mLoginFormView;
+    @BindView(R.id.btn_password_sign_in)
+    TextView btnPasswordSignIn;
+    @BindView(R.id.btn_phone_sign_in)
+    TextView btnPhoneSignIn;
+    @BindView(R.id.tl_password)
+    TextInputLayout tlPassword;
+    @BindView(R.id.securitycode)
+    EditText securitycode;
+    @BindView(R.id.btn_get_securitycode)
+    Button btnGetSecuritycode;
+    @BindView(R.id.ll_securitycode)
+    LinearLayout llSecuritycode;
+    @BindView(R.id.btn_forget_password)
+    TextView btnForgetPassword;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -282,9 +297,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
-    @OnClick(R.id.email_sign_in_button)
-    public void onSignBtnClicked() {
-        attemptLogin();
+    @OnClick({R.id.email_sign_in_button, R.id.btn_password_sign_in, R.id.btn_phone_sign_in, R.id.btn_get_securitycode, R.id.btn_forget_password})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.email_sign_in_button:
+                attemptLogin();
+                break;
+            case R.id.btn_password_sign_in:
+                tlPassword.setVisibility(View.VISIBLE);
+                btnForgetPassword.setVisibility(View.VISIBLE);
+                llSecuritycode.setVisibility(View.GONE);
+                break;
+            case R.id.btn_phone_sign_in:
+                tlPassword.setVisibility(View.GONE);
+                btnForgetPassword.setVisibility(View.INVISIBLE);
+                llSecuritycode.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btn_get_securitycode:
+                break;
+            case R.id.btn_forget_password:
+
+                break;
+        }
     }
 
 
