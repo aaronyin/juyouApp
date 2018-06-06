@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -16,9 +17,9 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -30,12 +31,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -43,7 +44,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -89,28 +90,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-        // Set up the login form.
-        populateAutoComplete();
-
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-    }
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -314,6 +293,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 llSecuritycode.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_get_securitycode:
+                Intent intent = new Intent(this, BaseActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_forget_password:
 
@@ -388,5 +369,61 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
+
+
+    @Override
+    protected void setRootView() {
+        super.setRootView();
+        setContentView(R.layout.activity_login);
+    }
+
+    @Override
+    protected void initWidght() {
+        super.initWidght();
+        hideTitleName();
+//      setTitleName(getResources().getString(R.string.app_name));//title
+//      setTitleBack(false,R.mipmap.ic_search);//有图标，但不是返回
+        setTitleBack(true,0);//返回
+        setTitleRightText("注册");//右侧文字
+        showTitleRes(R.id.title_add);//扩展menu（图标）
+        //goneTitleRes(R.id.title_add);隐藏图标，一般用不到
+
+
+        // Set up the login form.
+        populateAutoComplete();
+
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.title_rightTv:
+                Toast.makeText(this, "点击了注册", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.title_add://添加
+                break;
+//            case R.id.title_apps://应用break;
+            case R.id.title_setting://设置
+                break;
+        }
+        return super.onMenuItemClick(item);
+    }
+
+
 }
 

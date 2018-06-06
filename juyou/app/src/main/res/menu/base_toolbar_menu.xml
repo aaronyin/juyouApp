@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--扫描-->
+    <item android:id="@+id/title_scan"
+    android:title="@string/app_name"
+    android:visible="false"
+    android:icon="@mipmap/back"
+    app:showAsAction="ifRoom"/>
+    <!--添加-->
+    <item
+        android:id="@+id/title_add"
+        android:icon="@mipmap/back"
+        android:title="@string/app_name"
+        app:showAsAction="ifRoom" />
+    <!--设置-->
+    <item
+        android:id="@+id/title_setting"
+        android:icon="@mipmap/back"
+        android:title="@string/app_name"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <!--搜索-->
+    <item
+        android:id="@+id/title_search"
+        android:icon="@mipmap/back"
+        android:title="@string/app_name"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <!--日期-->
+    <item
+        android:id="@+id/title_date"
+        android:icon="@mipmap/back"
+        android:title="@string/app_name"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <!--刷新-->
+    <item
+        android:id="@+id/title_refresh"
+        android:icon="@mipmap/back"
+        android:title="@string/app_name"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <!--<item android:id="@+id/title_more1"-->
+    <!--android:title="@string/right2"-->
+    <!--app:showAsAction="never"/>-->
+    <!--<item android:id="@+id/title_more2"-->
+    <!--android:title="@string/right2"-->
+    <!--app:showAsAction="never"/>-->
+</menu>
