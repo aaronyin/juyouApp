@@ -10,6 +10,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:buttonStyle">@style/ButtonStyle</item>
         <item name="toolbarStyle" tools:ignore="NewApi">@style/MyToolBar</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar">

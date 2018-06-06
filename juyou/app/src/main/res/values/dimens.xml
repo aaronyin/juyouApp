@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="toolbar_padding_top">25dp</dimen>
 
     <dimen name="common_padding1">1.0dp</dimen>
     <dimen name="common_padding2">2.0dp</dimen>
