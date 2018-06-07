@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.BarParams;
 import com.gyf.barlibrary.ImmersionBar;
 
 import butterknife.ButterKnife;
@@ -96,6 +97,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         //在BaseActivity里初始化
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.init();
+
+        if (ImmersionBar.hasNavigationBar(this)) {
+            mImmersionBar.fullScreen(true).transparentNavigationBar().init();
+        }
     }
 
     /**
