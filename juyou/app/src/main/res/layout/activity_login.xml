@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.juyou.app.LoginActivity">
 
     <include layout="@layout/content_toolbar" />
@@ -29,9 +30,17 @@
             android:orientation="vertical"
             android:padding="25dp">
 
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/login_bg" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_padding8">
 
                 <TextView
                     android:id="@+id/btn_password_sign_in"
@@ -119,20 +128,22 @@
 
                 <Button
                     android:id="@+id/btn_get_securitycode"
-                    style="?android:textAppearanceSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/btn_app_stroke_selector"
                     android:text="@string/get_securitycode"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/common_text_14"
+                    android:textColor="@drawable/text_color_app_selector"
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/btn_forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_gravity="end|bottom"
-                android:text="@string/forget_password"/>
+                android:layout_marginTop="16dp"
+                android:text="@string/forget_password" />
 
             <Button
                 android:id="@+id/email_sign_in_button"
@@ -141,6 +152,15 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="@dimen/common_padding30"
+                android:drawableBottom="@mipmap/wechat"
+                android:text="@string/other_sign" />
 
         </LinearLayout>
     </ScrollView>

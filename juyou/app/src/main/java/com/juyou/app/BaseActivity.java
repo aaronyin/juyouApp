@@ -1,21 +1,24 @@
 package com.juyou.app;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.ButterKnife;
+import com.gyf.barlibrary.ImmersionBar;
 
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener {
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, Toolbar.OnMenuItemClickListener {
     /*Toolbar*/
     private Toolbar toolBar;
     /*是否第一次加载图标(主要针对首页一对多fragment)*/
@@ -28,22 +31,73 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView titleBack;
     /*标题名称*/
     private TextView titleName;
+
+    private InputMethodManager imm;
+    protected ImmersionBar mImmersionBar;
+
+    private Unbinder unbinder;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(setLayoutId());
         //竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setRootView();
-        ButterKnife.bind(this);
+        unbinder =ButterKnife.bind(this);
+
+        //初始化沉浸式
+        if (isImmersionBarEnabled())
+            initImmersionBar();
+
+        //初始化数据
+        initData();
         initToolbar();
-        initWidght();
+        //view与数据绑定
+        initView();
+
+        //设置监听
+        setListener();
     }
-    protected void setRootView(){}
-    protected void initWidght(){}
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+        this.imm = null;
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();  //在BaseActivity里销毁
+    }
+
+    protected abstract int setLayoutId();
+
+    protected abstract void initData();
+
+    protected abstract void initView();
+
+    protected abstract void setListener();
+
     //
     protected <T extends View>T getView(int resourcesId){
         return (T) findViewById(resourcesId);
     }
+
+    /**
+     * 是否可以使用沉浸式
+     * Is immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    protected boolean isImmersionBarEnabled() {
+        return true;
+    }
+
+    protected void initImmersionBar() {
+        //在BaseActivity里初始化
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.init();
+    }
+
     /**
      * 初始化toolbar
      * */
@@ -54,12 +108,12 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         titleName = getView(R.id.title_name);
         setSupportActionBar(toolBar);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            //透明状态栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        }
     }
     /**
      * 设置返回
@@ -78,6 +132,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             titleBack.setImageResource(resourcesId);
         }
     }
+
+    protected void setToolBarBackground(int color){
+        toolBar.setBackgroundColor(color);
+    }
+
     /**
      * 设置title
      * @param title ：title
@@ -148,5 +207,22 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         return false;
+    }
+
+
+    @Override
+    public void finish() {
+        super.finish();
+        hideSoftKeyBoard();
+    }
+
+    public void hideSoftKeyBoard() {
+        View localView = getCurrentFocus();
+        if (this.imm == null) {
+            this.imm = ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
+        }
+        if ((localView != null) && (this.imm != null)) {
+            this.imm.hideSoftInputFromWindow(localView.getWindowToken(), 2);
+        }
     }
 }

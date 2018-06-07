@@ -27,6 +27,7 @@
     <dimen name="common_padding20">20.0dp</dimen>
     <dimen name="common_padding22">22.0dp</dimen>
     <dimen name="common_padding24">24.0dp</dimen>
+    <dimen name="common_padding30">30.0dp</dimen>
     <dimen name="common_button_hight">50.0dp</dimen>
     <dimen name="common_line_height">20.0dp</dimen>
     <dimen name="common_select_item">45.0dp</dimen>
