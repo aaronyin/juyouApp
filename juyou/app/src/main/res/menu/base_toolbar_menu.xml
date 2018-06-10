@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!--扫描-->
-    <item android:id="@+id/title_scan"
-    android:title="@string/app_name"
-    android:visible="false"
-    android:icon="@mipmap/back"
-    app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/title_scan_code"
+        android:icon="@mipmap/scan_code"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
     <!--添加-->
     <item
-        android:id="@+id/title_add"
-        android:icon="@mipmap/back"
-        android:title="@string/app_name"
+        android:id="@+id/title_application_in"
+        android:title="@string/application_in"
+        android:visible="true"
         app:showAsAction="ifRoom" />
     <!--设置-->
     <item

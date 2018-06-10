@@ -1,11 +1,10 @@
-package com.juyou.app;
+package com.juyou.app.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -35,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.juyou.app.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +111,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     protected void initView() {
         hideTitleName();
         setTitleBack(true,0);//返回
-        setTitleRightText("注册");//右侧文字
+        setTitleRightText("注册", 0);//右侧文字
 //        showTitleRes(R.id.title_add);//扩展menu（图标）
 
         if (ImmersionBar.isSupportStatusBarDarkFont()){
@@ -159,8 +159,6 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.title_add://添加
-                break;
 //            case R.id.title_apps://应用break;
             case R.id.title_setting://设置
                 break;

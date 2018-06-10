@@ -11,6 +11,8 @@
     <string name="phone_sign_in">短信验证码登录</string>
     <string name="forget_password">忘记密码？</string>
     <string name="other_sign">其它登录方式</string>
+    <string name="local_merchants">本地商家</string>
+    <string name="application_in">申请入驻</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>

@@ -1,4 +1,4 @@
-package com.juyou.app;
+package com.juyou.app.activity;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.BarParams;
 import com.gyf.barlibrary.ImmersionBar;
+import com.juyou.app.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -28,6 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private boolean title_back_first = true;
     /*是否是返回(有可能是代表别的功能)*/
     private boolean is_title_back = true;
+//    /*是否使用菜单*/
+//    private boolean show_menu = false;
     /*返回*/
     private ImageView titleBack;
     /*标题名称*/
@@ -51,11 +55,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (isImmersionBarEnabled())
             initImmersionBar();
 
-        //初始化数据
-        initData();
         initToolbar();
         //view与数据绑定
         initView();
+        //初始化数据
+        initData();
 
         //设置监听
         setListener();
@@ -133,7 +137,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             title_back_first = false;
         }
         titleBack.setVisibility(View.VISIBLE);
-        if (!back){
+        if (resourcesId != 0){
             titleBack.setImageResource(resourcesId);
         }
     }
@@ -146,8 +150,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * 设置title
      * @param title ：title
      * */
-    protected void setTitleName(String title){
+    protected void setTitleName(String title, int color){
         titleName.setText(title);
+        if(color != 0){
+            titleName.setTextColor(color);
+        }
     }
 
     /**
@@ -160,6 +167,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * title右侧:图标类
      * */
     protected void setRightRes(){
+//        show_menu = true;
         //扩展menu
         toolBar.inflateMenu(R.menu.base_toolbar_menu);
         //添加监听
@@ -196,10 +204,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * title右侧文字
      * @param str :文字内容
      * */
-    protected void setTitleRightText(String str){
+    protected void setTitleRightText(String str, int color){
         TextView textView = getView(R.id.title_rightTv);
         textView.setVisibility(View.VISIBLE);
         textView.setText(str);
+        if(color != 0){
+            textView.setTextColor(color);
+        }
         textView.setOnClickListener(this);
     }
     @Override
@@ -220,6 +231,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.finish();
         hideSoftKeyBoard();
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        if(show_menu){
+//            //扩展menu
+//            toolBar.inflateMenu(R.menu.base_toolbar_menu);
+//            return true;
+//        }
+////        getMenuInflater().inflate(R.menu.base_toolbar_menu, menu);//加载menu文件到布局
+//        return true;
+//    }
 
     public void hideSoftKeyBoard() {
         View localView = getCurrentFocus();

@@ -6,24 +6,18 @@
     android:layout_height="?attr/actionBarSize"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    app:titleTextColor="@android:color/white"
-    android:background="@color/colorPrimary">
+    app:theme="@style/ToolbarTheme"
+    app:titleTextColor="@android:color/white">
 
-   <!-- <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:title="沉浸式（ImmersionBar）"
-        app:titleTextColor="@android:color/white" />-->
 
     <ImageView
         android:id="@+id/title_back"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/common_padding40"
         android:layout_height="match_parent"
         android:layout_gravity="left|center_vertical"
         android:visibility="gone"
-        android:src="@mipmap/back_2"/>
+        android:scaleType="center"
+        android:src="@mipmap/back3"/>
     <TextView
         android:id="@+id/title_name"
         android:layout_width="wrap_content"

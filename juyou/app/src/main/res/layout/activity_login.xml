@@ -5,7 +5,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@android:color/white"
-    tools:context="com.juyou.app.LoginActivity">
+    tools:context="com.juyou.app.activity.LoginActivity">
 
     <include layout="@layout/content_toolbar" />
 
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:src="@mipmap/login_bg" />
+                android:src="@mipmap/logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,6 +76,7 @@
                     android:hint="@string/prompt_phone"
                     android:inputType="phone"
                     android:maxLines="1"
+                    android:imeOptions="actionNext"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>

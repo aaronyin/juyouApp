@@ -33,4 +33,11 @@
         <item name="contentInsetStart">@dimen/common_padding4</item>
     </style>
 
+    <!-- ToolBar菜单样式 -->
+    <!-- 设置Toolbar菜单文字的大小  -->
+    <style name="ToolbarTheme" parent="AppTheme.AppBarOverlay">
+        <item name="actionMenuTextColor">@android:color/white</item> <!--颜色-->
+        <item name="android:textSize">@dimen/common_text_big</item> <!--字体大小-->
+    </style>
+
 </resources>
