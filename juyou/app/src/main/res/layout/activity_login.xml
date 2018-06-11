@@ -131,9 +131,9 @@
                     android:id="@+id/btn_get_securitycode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_app_stroke_selector"
                     android:text="@string/get_securitycode"
                     android:textSize="@dimen/common_text_14"
+                    android:background="@drawable/btn_app_stroke_selector"
                     android:textColor="@drawable/text_color_app_selector"
                     android:textStyle="normal" />
             </LinearLayout>

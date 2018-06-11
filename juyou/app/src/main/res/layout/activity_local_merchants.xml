@@ -1,63 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/food"
-            android:scaleType="centerCrop" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <View
-                android:id="@+id/top_view"
+        <FrameLayout
+            android:id="@+id/top_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="0dp" />
+                android:layout_height="280dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/food" />
 
-            <include layout="@layout/content_toolbar" />
-        </LinearLayout>
-    </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-<!--
+                <View
+                    android:id="@+id/top_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+
+                <include layout="@layout/content_toolbar" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <GridView
+            android:id="@+id/gv_merchants_type"
+            android:layout_marginLeft="@dimen/common_padding14"
+            android:layout_marginRight="@dimen/common_padding14"
+            android:paddingTop="@dimen/common_padding14"
+            android:layout_marginTop="-70dp"
+            android:layout_below="@+id/top_lay"
+            android:layout_width="match_parent"
+            android:background="@drawable/bg_solid_white"
+            android:numColumns="4"
+            android:gravity="center"
+            android:verticalSpacing="@dimen/common_padding14"
+            tools:listitem="@layout/item_list_merchants_type"
+            android:layout_height="wrap_content">
+        </GridView>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_padding20"
+        android:paddingLeft="@dimen/common_padding10"
+        android:paddingRight="@dimen/common_padding10"
+        android:orientation="horizontal">
 
-        <SeekBar
-            android:id="@+id/seek_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:src="@mipmap/icon_shop"/>
+        <TextView
+            android:layout_marginLeft="@dimen/common_padding8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:textSize="@dimen/common_text_big"
+            android:textColor="@android:color/black"
+            android:text="@string/nearby_shops"/>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:textSize="@dimen/common_text_middle"
+            android:text="@string/more_shops"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_padding8"
+            android:layout_gravity="right|center_vertical"
+            android:src="@mipmap/arrows_right"/>
 
-        <Button
-            android:id="@+id/btn_status_color"
-            style="@style/btn"
-            android:text="修改状态栏颜色" />
-
-        <Button
-            android:id="@+id/btn_navigation_color"
-            style="@style/btn"
-            android:text="修改导航栏颜色" />
-
-        <Button
-            android:id="@+id/btn_color"
-            style="@style/btn"
-            android:text="恢复初始值" />
     </LinearLayout>
--->
+
+    <ListView
+        android:id="@+id/lv_more_shops"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_list_more_shops"
+        android:layout_marginTop="@dimen/common_padding16"
+        android:divider="@android:color/white"
+        android:dividerHeight="@dimen/common_padding20"/>
+
 
 </LinearLayout>

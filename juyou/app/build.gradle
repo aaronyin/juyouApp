@@ -40,5 +40,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //下拉刷新库
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+    //万能adapter
+    compile 'com.zhy:base-adapter:3.0.3'
     implementation files('libs/barlibrary-2.3.0.jar')
 }
