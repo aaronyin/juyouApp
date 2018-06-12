@@ -7,10 +7,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.juyou.app.R;
+import com.juyou.app.view.NoScrollGridView;
+import com.juyou.app.view.NoScrollListview;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.adapter.abslistview.CommonAdapter;
 import com.zhy.adapter.abslistview.ViewHolder;
 
@@ -26,9 +31,11 @@ public class LocalMerchantsActivity extends BaseActivity {
 
 
     @BindView(R.id.gv_merchants_type)
-    GridView gvMerchantsType;
+    NoScrollGridView gvMerchantsType;
     @BindView(R.id.lv_more_shops)
-    ListView lvMoreShops;
+    NoScrollListview lvMoreShops;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
 
     private List<Integer> merchantsTypeList = new ArrayList<>();
     private List<Map<String, Object>> moreShopsList = new ArrayList<>();
@@ -41,10 +48,12 @@ public class LocalMerchantsActivity extends BaseActivity {
     @Override
     protected void initImmersionBar() {
         super.initImmersionBar();
+//        mImmersionBar.fullScreen(false).navigationBarColor(R.color.black).init();
         mImmersionBar.statusBarView(R.id.top_view)
                 .navigationBarColor(R.color.colorPrimary)
-                .fullScreen(true)
-                .addTag("PicAndColor")  //给上面参数打标记，以后可以通过标记恢复
+                .fullScreen(false)
+//                .transparentNavigationBar()
+                .addTag("LocalMerchants")
                 .init();
     }
 
@@ -78,7 +87,12 @@ public class LocalMerchantsActivity extends BaseActivity {
 //        setTitleRightText("申请入驻", Color.WHITE);//右侧文字
         showTitleRes(R.id.title_scan_code, R.id.title_application_in);
 
-        gvMerchantsType.setAdapter(new CommonAdapter<Integer>(this.getApplicationContext(), R.layout.item_list_merchants_type, merchantsTypeList) {
+    }
+
+    @Override
+    protected void setListener() {
+        gvMerchantsType.setAdapter(new CommonAdapter<Integer>(this.getApplicationContext(),
+                R.layout.item_list_merchants_type, merchantsTypeList) {
             @Override
             protected void convert(ViewHolder viewHolder, Integer item, int position) {
                 viewHolder.setImageResource(R.id.img_merchants_type, item);
@@ -86,21 +100,33 @@ public class LocalMerchantsActivity extends BaseActivity {
         });
 
 
-        lvMoreShops.setAdapter(new CommonAdapter<Map<String, Object>>(this.getApplicationContext(), R.layout.item_list_more_shops, moreShopsList) {
+        lvMoreShops.setAdapter(new CommonAdapter<Map<String, Object>>(this.getApplicationContext(),
+                R.layout.item_list_more_shops, moreShopsList) {
             @Override
             protected void convert(ViewHolder viewHolder, Map<String, Object> item, int position) {
-                viewHolder.setImageResource(R.id.img_shop, Integer.valueOf(item.get("img_shop")+""));
-                viewHolder.setText(R.id.tv_shop_title, item.get("shop_title")+"");
-                viewHolder.setText(R.id.tv_shop_sub_title, item.get("shop_sub_title")+"");
-                viewHolder.setText(R.id.btn_shop, item.get("btn_shop")+"");
-                viewHolder.setText(R.id.tv_shop_address, item.get("shop_address")+"");
-                viewHolder.setText(R.id.tv_shop_distance, item.get("shop_distance")+"");
+                viewHolder.setImageResource(R.id.img_shop, Integer.valueOf(item.get("img_shop") + ""))
+                        .setText(R.id.tv_shop_title, item.get("shop_title") + "")
+                        .setText(R.id.tv_shop_sub_title, item.get("shop_sub_title") + "")
+                        .setText(R.id.btn_shop, item.get("btn_shop") + "")
+                        .setText(R.id.tv_shop_address, item.get("shop_address") + "")
+                        .setText(R.id.tv_shop_distance, item.get("shop_distance") + "");
             }
         });
-    }
 
-    @Override
-    protected void setListener() {
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
 
     }
 
@@ -124,4 +150,10 @@ public class LocalMerchantsActivity extends BaseActivity {
         return super.onMenuItemClick(item);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }
